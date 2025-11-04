@@ -1,0 +1,48 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.4.2'
+    id 'io.spring.dependency-management' version '1.1.7'
+}
+
+group = 'com.kkc'
+version = '0.0.5-SNAPSHOT'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
+repositories {
+    mavenCentral()
+    maven { url 'https://m2.dv8tion.net/releases' }  // JDA 저장소
+    maven { url "https://maven.lavalink.dev/releases" }
+    maven { url 'https://jitpack.io' }  // lavaplayer-fork 저장소
+}
+
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter'
+    runtimeOnly 'com.mysql:mysql-connector-j'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+    //
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+    
+    // 테스트용 Lombok 설정
+    testCompileOnly 'org.projectlombok:lombok'
+    testAnnotationProcessor 'org.projectlombok:lombok'
+
+    //
+    implementation group: 'net.dv8tion', name: 'JDA', version: '5.3.0'
+    implementation("dev.arbjerg:lavaplayer:2.2.3")
+    implementation("dev.lavalink.youtube:common:1.14.0")
+
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
